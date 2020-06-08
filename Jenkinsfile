@@ -147,6 +147,7 @@ pipeline {
         always {
           convergeCoverage()
           generateResultsReport()
+          generateTestData()
         }
       }
     }
@@ -379,6 +380,11 @@ class PythonParallelTaskGenerator extends DefaultParallelTaskGenerator {
       }
     }
   }
+}
+
+def generateTestData(Map params = [:]) {
+  sh "scripts/flakey_marks.py"
+  archiveArtifacts allowEmptyArchive: true, artifacts: 'flaky_marks.json', defaultExcludes: false
 }
 
 def runScript(Map params = [:]){

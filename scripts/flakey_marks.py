@@ -20,4 +20,5 @@ root = tree.getroot()
 for child in root.findall('./testsuite/testcase'):
     if not list(child):
         ret['flaky_test_markers'].append((child.attrib))
-print(json.dumps(ret))
+with open('flakey_marks.json', 'w') as fh_:
+    json.dump(ret, fh_)
